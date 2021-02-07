@@ -1,0 +1,25 @@
+{% extends 'ecommerce/page_base.html' %}
+{% load static i18n %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans 'Purchase ID' %}</th>
+                <th>{% trans 'Total' %}</th>
+                <th>{% trans 'Status' %}</th>
+                <th>{% trans 'Options' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.pk }}</td>
+                    <td>{{ object.get_total_value }}</td>
+                    <td>{{ object.get_status_display }}</td>
+                    <td><a href="{% url 'ecommerce:purchase_details' object.pk %}">{% trans 'Details' %}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
