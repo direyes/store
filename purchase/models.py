@@ -31,6 +31,12 @@ class Product(models.Model):
 
 
 class Purchase(models.Model):
+    tpaga_status = models.CharField(
+        max_length=140,
+        null=True,
+        blank=True,
+        verbose_name=_('tpaga status'),
+    )
     status = models.CharField(
         max_length=140,
         choices=PURCHASE_STATUS,

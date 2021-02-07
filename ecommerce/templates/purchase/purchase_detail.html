@@ -40,9 +40,8 @@
              <h4>Total Price</h4>
              <h3>${{ object.get_total_value }}</h3>
              <br>
-          <form action="{% url 'ecommerce:new_purchase' %}" method="post">
+          <form action="{% url 'ecommerce:purchase_reverse' object.pk %}" method="post">
               {% csrf_token %}
-              <input type="hidden" name="product" value="{{ object.pk }}">
               <button type="submit" class="btn btn-primary">Revert payment</button>
          </form>
          <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>

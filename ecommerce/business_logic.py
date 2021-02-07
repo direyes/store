@@ -9,6 +9,7 @@ from django.conf import settings
 from django.db import transaction
 
 from purchase.choices import PAID
+from purchase.choices import REVERSED
 from purchase.models import Purchase
 from purchase.models import PurchaseItem
 
@@ -116,6 +117,7 @@ def request_payment(purchase, items):
     response_data = response.json()
     purchase.payment_token = response_data.get('token')
     purchase.payment_url = response_data.get('tpaga_payment_url')
+    purchase.tpaga_status = response_data.get('status')
     purchase.save()
 
 
@@ -138,8 +140,42 @@ def confirm_purchase(purchase):
     )
 
     response_data = response.json()
+    purchase.tpaga_status = response_data.get('status')
     if response_data.get('status') == 'paid':
         purchase.status = PAID
-        purchase.save()
+    purchase.save()
 
     return purchase
+
+
+@transaction.atomic
+def reverse_purchase(purchase):
+    """
+    curl -X POST \
+    https://stag.wallet.tpaga.co/merchants/api/v1/payment_requests/refund \
+    -H 'Authorization: Basic bWluaWFwcG1hLW1pbmltYWw6YWJjMTIz' \
+    -H 'Cache-Control: no-cache' \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "payment_request_token":"pr-3d6a2289193bec5adb5080dc2e91cadeba29b58f06ebbba1aba4c9eb85c6777e76811dcd"
+    }'
+    """
+
+    url = '{0}payment_requests/payment_requests/refund'.format(
+        settings.TPAGA_URL,
+        purchase.payment_token,
+    )
+
+    data = {
+        'payment_request_token': purchase.payment_token,
+    }
+
+    response = requests.post(
+        url,
+        data=json.dumps(data),
+        headers=get_headers(),
+    )
+    response_data = response.json()
+    purchase.tpaga_status = response_data.get('status')
+    purchase.status = REVERSED
+    purchase.save()

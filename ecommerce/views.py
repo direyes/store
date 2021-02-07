@@ -1,10 +1,13 @@
 from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
 from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
-from ecommerce.business_logic import confirm_purchase
+from ecommerce.business_logic import confirm_purchase, reverse_purchase
 from ecommerce.forms import PurchaseProductForm
+from purchase.choices import REVERSED
 from purchase.models import Product
 from purchase.models import PurchaseItem
 from purchase.models import Purchase
@@ -70,3 +73,19 @@ class ConfirmPaymentView(PurchaseDetailsView):
 
 class PurchaseListView(ListView):
     model = Purchase
+
+
+class PurchaseReverseView(DeleteView):
+    model = Purchase
+    success_url = '/purchase-details/{id}/'
+    pk_url_kwarg = 'purchase_pk'
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        reverse_purchase(self.object)
+        return HttpResponseRedirect(success_url)

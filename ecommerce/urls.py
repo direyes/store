@@ -6,6 +6,7 @@ from ecommerce.views import ConfirmPaymentView
 from ecommerce.views import IndexView
 from ecommerce.views import ProductView
 from ecommerce.views import PurchaseDetailsView
+from ecommerce.views import PurchaseReverseView
 from ecommerce.views import PurchaseView
 from ecommerce.views import PurchaseListView
 
@@ -16,4 +17,5 @@ urlpatterns = [
     url(_('^confirm-payment/(?P<purchase_pk>\d+)/$'), ConfirmPaymentView.as_view(), name='confirm_purchase'),
     url(_('^purchases/$'), PurchaseListView.as_view(), name='purchase_list'),
     url(_('^purchase-details/(?P<purchase_pk>\d+)/$'), PurchaseDetailsView.as_view(), name='purchase_details'),
+    url(_('^purchase-reverse/(?P<purchase_pk>\d+)/$'), PurchaseReverseView.as_view(), name='purchase_reverse'),
 ]
