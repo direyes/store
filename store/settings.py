@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 APPS = [
     'purchase',
+    'ecommerce',
 ]
 
 INSTALLED_APPS += APPS

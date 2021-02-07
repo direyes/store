@@ -43,7 +43,7 @@ class Purchase(models.Model):
         verbose_name=_('idempotency token'),
     )
     items = models.ManyToManyField(
-        'purchase.Purchase',
+        'purchase.Product',
         through='purchase.PurchaseItem',
         verbose_name=_('items'),
     )
@@ -70,10 +70,13 @@ class Purchase(models.Model):
     )
 
     def get_purchase_description(self):
-        return _('Purchase {0}').format(self.id)
+        return _('Purchase #{0}').format(self.id)
 
     def __str__(self):
         return '{0}'.format(self.id)
+
+    def get_total_value(self):
+        return sum([item.product.value * item.quantity for item in self.items.through.objects.filter(purchase=self)])
 
     class Meta:
         verbose_name = _('purchase')
