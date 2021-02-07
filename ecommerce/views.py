@@ -26,6 +26,11 @@ class ProductView(DetailView):
 class PurchaseView(TemplateView):
     template_name = 'purchase/purchase_form.html'
 
+    def get_context_data(self, **kwargs):
+        kwargs = super(PurchaseView, self).get_context_data(**kwargs)
+        kwargs['object'] = kwargs.get('form').cleaned_data['product']
+        return kwargs
+
     def form_invalid(self, form):
         """If the form is invalid, render the invalid form."""
         return self.render_to_response(self.get_context_data(form=form))
