@@ -104,7 +104,7 @@
       <div class="price-box-right">
          <form action="{% url 'ecommerce:new_purchase' %}" method="post">
              {% csrf_token %}
-             <input type="hidden" name="product" value="1">
+             <input type="hidden" name="product" value="{{ object.pk }}">
              <h4>Price</h4>
              <h3>${{ object.value }} <span>pr.peice</span></h3>
              <p>Quantity</p>

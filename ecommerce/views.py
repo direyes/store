@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 
 from ecommerce.business_logic import confirm_purchase
 from purchase.models import Product
+from purchase.models import PurchaseItem
 from purchase.models import Purchase
 from ecommerce.forms import PurchaseProductForm
 
@@ -49,6 +50,12 @@ class PurchaseView(TemplateView):
 class ConfirmPaymentView(DetailView):
     model = Purchase
     pk_url_kwarg = 'purchase_pk'
+
+    def get_context_data(self, **kwargs):
+        context = super(ConfirmPaymentView, self).get_context_data(**kwargs)
+        context['items'] = PurchaseItem.objects.filter(purchase=self.object)
+        context['title'] = context['object'].get_purchase_description()
+        return context
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()

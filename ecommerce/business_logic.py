@@ -55,31 +55,31 @@ def create_purchase(products):
 def request_payment(purchase, items):
     """
     curl -X POST \
-https://stag.wallet.tpaga.co/merchants/api/v1/payment_requests/create \
--H 'Authorization: Basic bWluaWFwcG1hLW1pbmltYWw6YWJjMTIz' \
--H 'Cache-Control: no-cache' \
--H 'Content-Type: application/json' \
--d '{
-"cost":"12000",
-"purchase_details_url":"https://example.com/compra/348820",
-"voucher_url":"https://example.com/comprobante/348820",
-"idempotency_token":"ea0c78c5-e85a-48c4-b7f9-24a9014a2339",
-"order_id":"348820",
-"terminal_id":"sede_45",
-"purchase_description":"Compra en Tienda X",
-"purchase_items":[
-    {
-        "name":"Aceite de girasol",
-        "value":"13.390"
-    },
-    {
-        "name":"Arroz X 80g",
-        "value":"4.190"
-    }
-],
-"user_ip_address":"61.1.224.56",
-"expires_at":"2018-11-05T20:10:57.549653+00:00"
-}'
+    https://stag.wallet.tpaga.co/merchants/api/v1/payment_requests/create \
+    -H 'Authorization: Basic bWluaWFwcG1hLW1pbmltYWw6YWJjMTIz' \
+    -H 'Cache-Control: no-cache' \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "cost":"12000",
+    "purchase_details_url":"https://example.com/compra/348820",
+    "voucher_url":"https://example.com/comprobante/348820",
+    "idempotency_token":"ea0c78c5-e85a-48c4-b7f9-24a9014a2339",
+    "order_id":"348820",
+    "terminal_id":"sede_45",
+    "purchase_description":"Compra en Tienda X",
+    "purchase_items":[
+        {
+            "name":"Aceite de girasol",
+            "value":"13.390"
+        },
+        {
+            "name":"Arroz X 80g",
+            "value":"4.190"
+        }
+    ],
+    "user_ip_address":"61.1.224.56",
+    "expires_at":"2018-11-05T20:10:57.549653+00:00"
+    }'
     """
 
     url = '{0}payment_requests/create'.format(settings.TPAGA_URL)

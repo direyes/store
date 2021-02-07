@@ -7,7 +7,6 @@ from ecommerce.views import IndexView
 from ecommerce.views import ProductView
 from ecommerce.views import PurchaseView
 
-
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     url(_('^product-details/(?P<product_pk>\d+)/$'), ProductView.as_view(), name='product_details'),
