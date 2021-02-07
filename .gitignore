@@ -1,0 +1,4 @@
+*.pyc
+/static
+.idea
+/store/local_settings.py
