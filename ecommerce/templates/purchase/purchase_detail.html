@@ -1,0 +1,50 @@
+{% extends 'ecommerce/page_base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="col-md-7 col-sm-8">
+      <div class="md-prod-page">
+         <div class="md-prod-page-in">
+
+            <div class="page-preview">
+               <div class="preview">
+                  <div class="preview-pic tab-content">
+                      {% for item in items %}
+                         <div class="col-md-2 col-sm-4">
+                            <div class="left-profile-box-m prod-page">
+                                <div class="pro-img">
+                                    <img src="{{ item.product.image.url }}" alt="#" />
+                                </div>
+                                <div class="pof-text">
+                                    <h3>{{ item.product.name }}</h3>
+                                    <div>Quantity: {{ item.quantity }}</div>
+                                </div>
+                            </div>
+                        </div>
+                      {% endfor %}
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="description-box">
+            <div class="dex-a">
+               <h4>Status</h4>
+               <p>{{ object.get_status_display }}
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+    <div class="col-md-3 col-sm-12">
+      <div class="price-box-right">
+             <h4>Total Price</h4>
+             <h3>${{ object.get_total_value }}</h3>
+             <br>
+          <form action="{% url 'ecommerce:purchase_reverse' object.pk %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Revert payment</button>
+         </form>
+         <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
+      </div>
+   </div>
+{% endblock content %}
