@@ -21,4 +21,4 @@ class PurchaseProductForm(forms.Form):
                 'quantity': self.cleaned_data['quantity'],
             }
         ]
-        create_purchase(products)
+        return create_purchase(products)

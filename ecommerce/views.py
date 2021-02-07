@@ -1,13 +1,12 @@
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
 from django.views.generic import DeleteView
 from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
-from ecommerce.business_logic import confirm_purchase, reverse_purchase
+from ecommerce.business_logic import confirm_purchase
+from ecommerce.business_logic import reverse_purchase
 from ecommerce.forms import PurchaseProductForm
-from purchase.choices import REVERSED
 from purchase.models import Product
 from purchase.models import PurchaseItem
 from purchase.models import Purchase
@@ -42,13 +41,13 @@ class PurchaseView(TemplateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(self.object.payment_url)
 
     def post(self, request, *args, **kwargs):
         form = PurchaseProductForm(data=request.POST)
         if not form.is_valid():
             return self.form_invalid(form)
-        self.form_valid(form)
+        return self.form_valid(form)
 
 
 class PurchaseDetailsView(DetailView):

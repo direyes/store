@@ -47,7 +47,7 @@ def create_purchase(products):
                 purchase=purchase,
             )
         )
-    request_payment(
+    return request_payment(
         purchase=purchase,
         items=items,
     )
@@ -119,6 +119,7 @@ def request_payment(purchase, items):
     purchase.payment_url = response_data.get('tpaga_payment_url')
     purchase.tpaga_status = response_data.get('status')
     purchase.save()
+    return purchase
 
 
 def confirm_purchase(purchase):
