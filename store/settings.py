@@ -41,9 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+THIRD_APSS = [
+    'rest_framework',
+]
+
+INSTALLED_APPS += THIRD_APSS
+
 APPS = [
     'purchase',
     'ecommerce',
+    'api',
 ]
 
 INSTALLED_APPS += APPS
