@@ -108,7 +108,7 @@ class ApiTestCase(TestCase):
             'quantity': 1,
         }
         response = self.client.post(
-            '/api/purchases/',
+            '/api/new-purchase/',
             data,
             format='json',
         )
@@ -163,7 +163,7 @@ class ApiTestCase(TestCase):
         )
 
         response = self.client.get(
-            '/api/purchases/{0}/'.format(self.purchase.pk),
+            '/api/confirm-purchase/{0}/'.format(self.purchase.pk),
             format='json',
         )
 
@@ -217,7 +217,7 @@ class ApiTestCase(TestCase):
         )
 
         response = self.client.delete(
-            '/api/purchases/{0}/'.format(self.purchase.pk),
+            '/api/reverse-purchase/{0}/'.format(self.purchase.pk),
             format='json',
         )
 

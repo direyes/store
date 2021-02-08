@@ -3,3 +3,4 @@ requests==2.25.1
 django-dynamic-fixture==3.1.1
 httpretty==1.0.5
 djangorestframework==3.12.2
+django-rest-swagger==2.2.0
