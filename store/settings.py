@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 THIRD_APSS = [
     'rest_framework',
+    'rest_framework_swagger',
 ]
 
 INSTALLED_APPS += THIRD_APSS
@@ -79,6 +80,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {  # Adding this section should work around the issue.
+                'staticfiles': 'django.templatetags.static',
+            },
         },
     },
 ]
@@ -137,6 +141,10 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}
 
 try:
     exec(open(os.path.join(BASE_DIR, 'store', 'local_settings.py')).read())

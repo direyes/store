@@ -20,8 +20,13 @@ from django.urls import path
 from django.conf.urls import url
 from django.conf.urls.static import static
 
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Store API')
+
 urlpatterns = [
+    path('admin/', admin.site.urls),
     url(r'', include(('ecommerce.urls', 'ecommerce'), namespace='ecommerce')),
     url(r'api/', include(('api.urls', 'api'), namespace='api')),
-    path('admin/', admin.site.urls),
+    url(r'^api-doc/$', schema_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

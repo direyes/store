@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "7927fa5e-8be0-4c79-97ef-439d34b4f7da",
+		"name": "store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}products/",
+					"host": [
+						"{{host}}products"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "purchases",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}purchases/",
+					"host": [
+						"{{host}}purchases"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new-purchase",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"product_id\": 1,\n    \"quantity\": 1\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}new-purchase/",
+					"host": [
+						"{{host}}new-purchase"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirm-purchase",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}confirm-purchase/10/",
+					"host": [
+						"{{host}}confirm-purchase"
+					],
+					"path": [
+						"10",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reverse-purchase",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}reverse-purchase/11/",
+					"host": [
+						"{{host}}reverse-purchase"
+					],
+					"path": [
+						"11",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
