@@ -180,3 +180,5 @@ def reverse_purchase(purchase):
     purchase.tpaga_status = response_data.get('status')
     purchase.status = REVERSED
     purchase.save()
+
+    return purchase
