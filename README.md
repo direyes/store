@@ -15,6 +15,10 @@ Install using `pip`...
     mkvirtualenv store
     pip install -r requirements.txt
 
+# App online
+
+    http://104.154.77.20/
+
 # Swagger Documentation Link
 
     http://104.154.77.20/api-doc/
