@@ -99,7 +99,7 @@ class ApiTestCase(TestCase):
             httpretty.POST,
             '{0}payment_requests/create'.format(settings.TPAGA_URL),
             body=json.dumps(response_data),
-            status=200,
+            status=201,
             content_type='application/json',
         )
 

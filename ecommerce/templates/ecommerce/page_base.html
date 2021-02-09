@@ -124,6 +124,15 @@
                </div>
             </div>
             <div class="row">
+                {% if messages %}
+                    <ul class="messagelist">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }} message"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <br/>
+                <br/>
                 {% block content %}
                 {% endblock content %}
             </div>

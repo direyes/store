@@ -147,6 +147,8 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
 try:
     exec(open(os.path.join(BASE_DIR, 'store', 'local_settings.py')).read())
 except IOError as e:
