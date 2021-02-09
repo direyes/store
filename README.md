@@ -17,8 +17,29 @@ Install using `pip`...
 
 # App online
 
-    http://104.154.77.20/
+    https://facturacion.uno/
 
 # Swagger Documentation Link
 
-    http://104.154.77.20/api-doc/
+    https://facturacion.uno/api-doc/
+
+
+# Running Tests
+
+    python manage.py test
+
+# To try the app
+
+    # Creating new purchase    
+
+    * Go to app online (https://facturacion.uno/)
+    * Click on the product
+    * Type Quantity and click on Continue
+    * The app redirects to TPaga payment
+    * After the payment the app reloads the purchase detail
+
+    # Reverting purchase
+
+    * Click on the link Purchases
+    * Click on details of purchase to revert
+    * Click on Revert Payment 
