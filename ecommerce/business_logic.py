@@ -60,7 +60,7 @@ def validate_tpaga_response(response):
     if response.status_code == 422:
         response_data = response.json()
         raise ErrorTPaga('{0}'.format(response_data.get('error_message')))
-    elif not response.status_code in [200, 201]:
+    elif response.status_code not in [200, 201]:
         raise ConnectionTPaga(_('Error at connect with TPaga for payment. Please try again.'))
 
 
@@ -194,6 +194,9 @@ def reverse_purchase(purchase):
         data=json.dumps(data),
         headers=get_headers(),
     )
+
+    print(response)
+    print(response.json())
 
     validate_tpaga_response(response)
 
