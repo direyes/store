@@ -43,3 +43,5 @@ Install using `pip`...
     * Click on the link (Purchases)
     * Click on link (Details) of purchase to revert
     * Click on Revert Payment 
+
+    * Also you can to find the endpoints to load on postman in the folder called (portman)
