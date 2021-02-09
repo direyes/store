@@ -6,8 +6,9 @@
         <thead>
             <tr>
                 <th>{% trans 'Purchase ID' %}</th>
-                <th>{% trans 'Total' %}</th>
-                <th>{% trans 'Status' %}</th>
+                <th>{% trans 'Total Value' %}</th>
+                <th>{% trans 'System Status' %}</th>
+                <th>{% trans 'TPaga Status' %}</th>
                 <th>{% trans 'Options' %}</th>
             </tr>
         </thead>
@@ -17,6 +18,7 @@
                     <td>{{ object.pk }}</td>
                     <td>{{ object.get_total_value }}</td>
                     <td>{{ object.get_status_display }}</td>
+                    <td>{{ object.tpaga_status }}</td>
                     <td><a href="{% url 'ecommerce:purchase_details' object.pk %}">{% trans 'Details' %}</a></td>
                 </tr>
             {% endfor %}

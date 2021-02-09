@@ -40,6 +40,6 @@ Install using `pip`...
 
     # Reverting purchase
 
-    * Click on the link Purchases
-    * Click on details of purchase to revert
+    * Click on the link (Purchases)
+    * Click on link (Details) of purchase to revert
     * Click on Revert Payment 
