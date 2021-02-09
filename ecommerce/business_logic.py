@@ -195,9 +195,6 @@ def reverse_purchase(purchase):
         headers=get_headers(),
     )
 
-    print(response)
-    print(response.json())
-
     validate_tpaga_response(response)
 
     response_data = response.json()
