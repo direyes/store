@@ -97,7 +97,10 @@ def request_payment(purchase, items):
         cost += item.product.value * item.quantity
     purchase_data = {
         'cost': cost,
-        'purchase_details_url': settings.SITE_URL,
+        'purchase_details_url': '{0}confirm-payment/{1}/'.format(
+            settings.SITE_URL,
+            purchase.pk,
+        ),
         'voucher_url': '',
         'idempotency_token': purchase.idempotency_token.__str__(),
         'order_id': purchase.pk,
