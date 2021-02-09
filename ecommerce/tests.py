@@ -165,7 +165,7 @@ class PurchaseTest(TestCase):
         }
         httpretty.register_uri(
             httpretty.POST,
-            '{0}payment_requests/payment_requests/refund'.format(
+            '{0}payment_requests/refund'.format(
                 settings.TPAGA_URL,
                 self.purchase.payment_token,
             ),
