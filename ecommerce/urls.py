@@ -13,7 +13,7 @@ from ecommerce.views import PurchaseListView
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     url(_('^product-details/(?P<product_pk>\d+)/$'), ProductView.as_view(), name='product_details'),
-    url(_('^new-purchase/$'), PurchaseView.as_view(), name='new_purchase'),
+    url(_('^new-purchase/(?P<product_pk>\d+)/$'), PurchaseView.as_view(), name='new_purchase'),
     url(_('^confirm-payment/(?P<purchase_pk>\d+)/$'), ConfirmPaymentView.as_view(), name='confirm_purchase'),
     url(_('^purchases/$'), PurchaseListView.as_view(), name='purchase_list'),
     url(_('^purchase-details/(?P<purchase_pk>\d+)/$'), PurchaseDetailsView.as_view(), name='purchase_details'),

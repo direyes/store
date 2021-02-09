@@ -8,6 +8,8 @@ from api.serializers import ProductSerializer
 from api.serializers import PurchaseSerializer
 from ecommerce.business_logic import confirm_purchase
 from ecommerce.business_logic import reverse_purchase
+from ecommerce.exceptions import ConnectionTPaga
+from ecommerce.exceptions import ErrorTPaga
 from purchase.models import Product
 from purchase.models import Purchase
 
@@ -38,7 +40,10 @@ class NewPurchaseViewSet(mixins.CreateModelMixin, GenericViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        purchase = self.perform_create(serializer)
+        try:
+            purchase = self.perform_create(serializer)
+        except (ErrorTPaga, ConnectionTPaga) as e:
+            return Response({'error_message': e.__str__()}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         serializer = PurchaseSerializer(purchase)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -61,6 +66,9 @@ class ReversePurchaseViewSet(mixins.DestroyModelMixin, GenericViewSet):
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        purchase = reverse_purchase(instance)
+        try:
+            purchase = reverse_purchase(instance)
+        except (ErrorTPaga, ConnectionTPaga) as e:
+            return Response({'error_message': e.__str__()}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         serializer = self.get_serializer(purchase)
         return Response(serializer.data)

@@ -7,7 +7,10 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.db import transaction
+from django.utils.translation import ugettext_lazy as _
 
+from ecommerce.exceptions import ConnectionTPaga
+from ecommerce.exceptions import ErrorTPaga
 from purchase.choices import PAID
 from purchase.choices import REVERSED
 from purchase.models import Purchase
@@ -51,6 +54,14 @@ def create_purchase(products):
         purchase=purchase,
         items=items,
     )
+
+
+def validate_tpaga_response(response):
+    if response.status_code == 422:
+        response_data = response.json()
+        raise ErrorTPaga('{0}'.format(response_data.get('error_message')))
+    elif not response.status_code in [200, 201]:
+        raise ConnectionTPaga(_('Error at connect with TPaga for payment. Please try again.'))
 
 
 def request_payment(purchase, items):
@@ -117,6 +128,8 @@ def request_payment(purchase, items):
         headers=get_headers(),
     )
 
+    validate_tpaga_response(response)
+
     response_data = response.json()
     purchase.payment_token = response_data.get('token')
     purchase.payment_url = response_data.get('tpaga_payment_url')
@@ -142,6 +155,8 @@ def confirm_purchase(purchase):
         url,
         headers=get_headers(),
     )
+
+    validate_tpaga_response(response)
 
     response_data = response.json()
     purchase.tpaga_status = response_data.get('status')
@@ -179,6 +194,9 @@ def reverse_purchase(purchase):
         data=json.dumps(data),
         headers=get_headers(),
     )
+
+    validate_tpaga_response(response)
+
     response_data = response.json()
     purchase.tpaga_status = response_data.get('status')
     purchase.status = REVERSED

@@ -35,7 +35,7 @@ class PurchaseTest(TestCase):
             product=self.product,
             purchase=self.purchase,
         )
-        self.new_purchase_url = reverse_lazy('ecommerce:new_purchase')
+        self.new_purchase_url = reverse_lazy('ecommerce:new_purchase', kwargs={'product_pk': self.product.pk})
         self.confirm_purchase_url = reverse_lazy('ecommerce:confirm_purchase', kwargs={'purchase_pk': self.purchase.pk})
         self.reverse_purchase_url = reverse_lazy('ecommerce:purchase_reverse', kwargs={'purchase_pk': self.purchase.pk})
 
@@ -71,7 +71,7 @@ class PurchaseTest(TestCase):
             httpretty.POST,
             '{0}payment_requests/create'.format(settings.TPAGA_URL),
             body=json.dumps(response_data),
-            status=200,
+            status=201,
             content_type='application/json',
         )
         data = {
