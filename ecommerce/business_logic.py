@@ -180,7 +180,7 @@ def reverse_purchase(purchase):
     }'
     """
 
-    url = '{0}payment_requests/payment_requests/refund'.format(
+    url = '{0}payment_requests/refund'.format(
         settings.TPAGA_URL,
         purchase.payment_token,
     )
